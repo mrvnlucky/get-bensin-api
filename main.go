@@ -22,12 +22,17 @@ func main() {
 	var lastID uint = 0
 	var headers []string
 
+	c.OnRequest(func(r *colly.Request) {
+		fmt.Println("Visiting", r.URL)
+	})
+
+	c.OnError(func(r *colly.Response, err error) {
+		fmt.Println("Error", err)
+	})
+
 	// Getting table headers
 	c.OnHTML("table tbody tr:nth-child(1)", func(e *colly.HTMLElement) {
 		e.ForEach("td, th", func(i int, el *colly.HTMLElement) {
-			// if i == 0 {
-			// 	return
-			// }
 			headers = append(headers, strings.Title(strings.ToLower(el.Text)))
 		})
 	})
@@ -36,7 +41,7 @@ func main() {
 		if e.Index == 0 {
 			return
 		}
-		if !strings.Contains(e.Text, "Jakarta") && !strings.Contains(e.Text, "jakarta") {
+		if !strings.Contains(strings.ToLower(e.Text), "jakarta") {
 			return
 		}
 		e.ForEach("td", func(i int, el *colly.HTMLElement) {
@@ -53,7 +58,8 @@ func main() {
 		})
 	})
 
-	err := c.Visit("https://www.pertamina.com/id/news-room/announcement/daftar-harga-bahan-bakar-khusus-non-subsidi-tmt-1-februari-2024-zona-3")
+	// err := c.Visit("https://www.pertamina.com/id/news-room/announcement/daftar-harga-bahan-bakar-khusus-non-subsidi-tmt-1-februari-2024-zona-3")
+	err := c.Visit("https://www.shell.co.id/in_id/pengendara-bermotor/bahan-bakar-shell/harga-bahan-bakar-shell.html")
 
 	if err != nil {
 		log.Fatal(err)
