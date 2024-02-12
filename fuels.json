@@ -1,0 +1,57 @@
+[
+ {
+  "id": 1,
+  "fuel_name": "Pertamax",
+  "fuel_price": "12.950"
+ },
+ {
+  "id": 2,
+  "fuel_name": "Pertamax Turbo",
+  "fuel_price": "14.400"
+ },
+ {
+  "id": 3,
+  "fuel_name": "Pertamax Green 95",
+  "fuel_price": "13.900"
+ },
+ {
+  "id": 4,
+  "fuel_name": "Dexlite",
+  "fuel_price": "14.550"
+ },
+ {
+  "id": 5,
+  "fuel_name": "Pertamina Dex",
+  "fuel_price": "15.100"
+ },
+ {
+  "id": 6,
+  "fuel_name": "Solar Non-Subsidi",
+  "fuel_price": "-"
+ },
+ {
+  "id": 7,
+  "fuel_name": "Shell Super",
+  "fuel_price": "IDR 13,540"
+ },
+ {
+  "id": 8,
+  "fuel_name": "Shell V-Power",
+  "fuel_price": "IDR 14,380"
+ },
+ {
+  "id": 9,
+  "fuel_name": "Shell V-Power Diesel",
+  "fuel_price": "IDR 15,270"
+ },
+ {
+  "id": 10,
+  "fuel_name": "Shell Diesel Extra",
+  "fuel_price": "N/A"
+ },
+ {
+  "id": 11,
+  "fuel_name": "Shell V-Power Nitro+",
+  "fuel_price": "IDR 14,630"
+ }
+]
