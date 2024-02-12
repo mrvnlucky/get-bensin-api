@@ -2,87 +2,49 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
-	"log"
+	"net/http"
 	"os"
-	"strings"
 
-	"github.com/gocolly/colly/v2"
+	"github.com/gin-gonic/gin"
 )
 
 type Fuel struct {
-	ID    uint   `json:"id"`
-	Name  string `json:"fuel_name"`
-	Price string `json:"fuel_price"`
+	ID        uint   `json:"id"`
+	FuelName  string `json:"fuel_name"`
+	FuelPrice string `json:"fuel_price"`
 }
 
 func main() {
+	r := gin.Default()
+
+	// Define your endpoint to handle the GET request
+	r.GET("/fuels", func(c *gin.Context) {
+		// Read fuel data from JSON file
+		fuels, err := readFuelsFromJSON("fuels.json")
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "failed to read fuel data"})
+			return
+		}
+
+		// Return fuels as JSON response
+		c.JSON(http.StatusOK, fuels)
+	})
+	r.Run()
+}
+
+func readFuelsFromJSON(filename string) ([]Fuel, error) {
+	// Open the JSON file
+	file, err := os.Open(filename)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	// Decode JSON data into a slice of Fuel structs
 	var fuels []Fuel
-
-	urls := []string{
-		"https://www.pertamina.com/id/news-room/announcement/daftar-harga-bahan-bakar-khusus-non-subsidi-tmt-1-februari-2024-zona-3",
-		"https://www.shell.co.id/in_id/pengendara-bermotor/bahan-bakar-shell/harga-bahan-bakar-shell.html",
-	}
-	for _, url := range urls {
-		scrapeSite(url, &fuels)
+	if err := json.NewDecoder(file).Decode(&fuels); err != nil {
+		return nil, err
 	}
 
-	writeJSON(fuels)
-}
-
-func scrapeSite(url string, fuels *[]Fuel) {
-	c := colly.NewCollector()
-	var lastID uint = uint(len(*fuels))
-	var headers []string
-
-	c.OnRequest(func(r *colly.Request) {
-		fmt.Println("Visiting", r.URL)
-	})
-
-	c.OnError(func(r *colly.Response, err error) {
-		fmt.Println("Error", err)
-	})
-
-	// Getting table headers
-	c.OnHTML("table tbody tr:nth-child(1)", func(e *colly.HTMLElement) {
-		e.ForEach("td, th", func(i int, el *colly.HTMLElement) {
-			headers = append(headers, strings.Title(strings.ToLower(el.Text)))
-		})
-	})
-
-	c.OnHTML("table tbody tr", func(e *colly.HTMLElement) {
-		if e.Index == 0 {
-			return
-		}
-		if !strings.Contains(strings.ToLower(e.Text), "jakarta") {
-			return
-		}
-		e.ForEach("td", func(i int, el *colly.HTMLElement) {
-			if i == 0 {
-				return
-			}
-			fuel := Fuel{
-				ID:    lastID + 1,
-				Name:  headers[i],
-				Price: el.Text,
-			}
-			lastID++
-			*fuels = append(*fuels, fuel)
-		})
-	})
-
-	err := c.Visit(url)
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
-func writeJSON(data []Fuel) {
-	file, err := json.MarshalIndent(data, "", " ")
-	if err != nil {
-		fmt.Println("Unable to create JSON file")
-		return
-	}
-
-	_ = os.WriteFile("fuels.json", file, 0644)
+	return fuels, nil
 }
