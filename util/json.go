@@ -24,9 +24,10 @@ func ToIDR(str string) int {
 	if str == "-" || str == "N/A" {
 		return 0
 	}
-	trimmed := strings.TrimPrefix(str, "IDR ")
+	trimmed := strings.TrimPrefix(str, "IDR")
 	trimmed = strings.TrimPrefix(trimmed, "Rp")
 	trimmed = strings.ReplaceAll(trimmed, ",", "")
+	trimmed = strings.TrimSpace(trimmed)
 	num, err := strconv.Atoi(trimmed)
 	if err != nil {
 		log.Fatalln("Error:", err)
