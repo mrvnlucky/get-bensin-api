@@ -1,21 +1,23 @@
 package main
 
 import (
-	"fmt"
-	"get-bensin/scraper"
-	"get-bensin/types"
-	"get-bensin/util"
+	"get-bensin/api"
+	"get-bensin/data"
 )
 
 var (
-	fuels []types.Fuel
+	fuels []data.Fuel
 )
 
 func main() {
-	scraper.ScrapePertamina(&fuels)
-	scraper.ScrapeShell(&fuels)
-	scraper.ScrapeBP(&fuels)
+	r := api.SetupRouter()
+	api.RegisterFuelRoutes(r)
 
-	fmt.Println(&fuels)
-	util.WriteJSON(&fuels)
+	r.Run(":8080")
+	// scraper.ScrapePertamina(&fuels)
+	// scraper.ScrapeShell(&fuels)
+	// scraper.ScrapeBP(&fuels)
+
+	// fmt.Println(&fuels)
+	// util.WriteJSON(&fuels)
 }
