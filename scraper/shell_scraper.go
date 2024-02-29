@@ -7,11 +7,11 @@ import (
 
 	"github.com/gocolly/colly/v2"
 
-	"get-bensin/types"
+	"get-bensin/data"
 	"get-bensin/util"
 )
 
-func ScrapeShell(fuels *[]types.Fuel) {
+func ScrapeShell(fuels *[]data.Fuel) {
 	names := []string{
 		"Shell Super",
 		"Shell V-Power",
@@ -32,7 +32,7 @@ func ScrapeShell(fuels *[]types.Fuel) {
 		e.ForEach("td:nth-child(n+2)", func(_ int, el *colly.HTMLElement) {
 			price := strings.TrimSpace(el.Text)
 			fmt.Println(price)
-			fuel := types.Fuel{
+			fuel := data.Fuel{
 				Name:    names[i],
 				Company: "Shell",
 				Price:   util.ToIDR(price),

@@ -8,10 +8,10 @@ import (
 	"strconv"
 	"strings"
 
-	"get-bensin/types"
+	"get-bensin/data"
 )
 
-func WriteJSON(data *[]types.Fuel) {
+func WriteJSON(data *[]data.Fuel) {
 	file, err := json.MarshalIndent(data, "", " ")
 	if err != nil {
 		fmt.Println("Unable to create JSON file")

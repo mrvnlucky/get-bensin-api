@@ -7,11 +7,11 @@ import (
 
 	"github.com/gocolly/colly/v2"
 
-	"get-bensin/types"
+	"get-bensin/data"
 	"get-bensin/util"
 )
 
-func ScrapePertamina(fuels *[]types.Fuel) {
+func ScrapePertamina(fuels *[]data.Fuel) {
 	names := []string{
 		"Pertamax Turbo",
 		"Pertamax Green",
@@ -33,7 +33,7 @@ func ScrapePertamina(fuels *[]types.Fuel) {
 				return
 			}
 			price := strings.TrimSpace(el.ChildText("label:last-child"))
-			fuel := types.Fuel{
+			fuel := data.Fuel{
 				Name:    names[i],
 				Company: "Pertamina",
 				Price:   util.ToIDR(price),

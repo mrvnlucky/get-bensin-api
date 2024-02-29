@@ -2,7 +2,7 @@ package scraper
 
 import (
 	"fmt"
-	"get-bensin/types"
+	"get-bensin/data"
 	"get-bensin/util"
 	"log"
 	"strings"
@@ -10,7 +10,7 @@ import (
 	"github.com/gocolly/colly/v2"
 )
 
-func ScrapeBP(fuels *[]types.Fuel) {
+func ScrapeBP(fuels *[]data.Fuel) {
 	names := []string{
 		"BP Ultimate",
 		"BP 92",
@@ -27,7 +27,7 @@ func ScrapeBP(fuels *[]types.Fuel) {
 		e.ForEach("tr:nth-child(n+2)", func(_ int, row *colly.HTMLElement) {
 			price := strings.TrimSpace(row.ChildText("td:nth-child(2)"))
 			fmt.Println(price)
-			fuel := types.Fuel{
+			fuel := data.Fuel{
 				Name:    names[i],
 				Company: "BP",
 				Price:   util.ToIDR(price),
