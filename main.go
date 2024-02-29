@@ -14,6 +14,7 @@ var (
 func main() {
 	scraper.ScrapePertamina(&fuels)
 	scraper.ScrapeShell(&fuels)
+	scraper.ScrapeBP(&fuels)
 
 	fmt.Println(&fuels)
 	util.WriteJSON(&fuels)

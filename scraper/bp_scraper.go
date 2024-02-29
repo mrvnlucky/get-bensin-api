@@ -2,39 +2,34 @@ package scraper
 
 import (
 	"fmt"
+	"get-bensin/types"
+	"get-bensin/util"
 	"log"
 	"strings"
 
 	"github.com/gocolly/colly/v2"
-
-	"get-bensin/types"
-	"get-bensin/util"
 )
 
-func ScrapeShell(fuels *[]types.Fuel) {
+func ScrapeBP(fuels *[]types.Fuel) {
 	names := []string{
-		"Shell Super",
-		"Shell V-Power",
-		"Shell V-Power Diesel",
-		"Shell Diesel Extra",
-		"Shell V-Power Nitro+",
+		"BP Ultimate",
+		"BP 92",
+		"BP Diesel",
 	}
 	i := 0
-
 	c := colly.NewCollector()
+	// Find and parse the table
 	c.OnRequest(func(r *colly.Request) {
 		fmt.Println("Visiting:", r.URL.String())
 	})
-	c.OnHTML("table tbody tr", func(e *colly.HTMLElement) {
-		if !strings.Contains(strings.ToLower(e.Text), "jakarta") {
-			return
-		}
-		e.ForEach("td:nth-child(n+2)", func(_ int, el *colly.HTMLElement) {
-			price := strings.TrimSpace(el.Text)
+	c.OnHTML("table", func(e *colly.HTMLElement) {
+		// Iterate over cells
+		e.ForEach("tr:nth-child(n+2)", func(_ int, row *colly.HTMLElement) {
+			price := strings.TrimSpace(row.ChildText("td:nth-child(2)"))
 			fmt.Println(price)
 			fuel := types.Fuel{
 				Name:    names[i],
-				Company: "Shell",
+				Company: "BP",
 				Price:   util.ToIDR(price),
 			}
 			i++
@@ -49,5 +44,6 @@ func ScrapeShell(fuels *[]types.Fuel) {
 	c.OnError(func(r *colly.Response, err error) {
 		log.Fatalln("Request URL:", r.Request.URL, "failed with response:", r, "\nError:", err)
 	})
-	c.Visit("https://www.shell.co.id/in_id/pengendara-bermotor/bahan-bakar-shell/harga-bahan-bakar-shell.html")
+	// Visit the URL
+	c.Visit("https://www.bp.com/id_id/indonesia/home/produk-dan-layanan/spbu/harga.html")
 }
