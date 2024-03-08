@@ -1,57 +1,98 @@
 [
  {
-  "id": 1,
-  "fuel_name": "Pertamax",
-  "fuel_price": "12.950"
+  "name": "Pertamax Turbo",
+  "company": "Pertamina",
+  "price": 14400,
+  "dateTime": "2024-03-06T21:18:34.7136937+07:00"
  },
  {
-  "id": 2,
-  "fuel_name": "Pertamax Turbo",
-  "fuel_price": "14.400"
+  "name": "Pertamax Green",
+  "company": "Pertamina",
+  "price": 13900,
+  "dateTime": "2024-03-06T21:18:34.7142372+07:00"
  },
  {
-  "id": 3,
-  "fuel_name": "Pertamax Green 95",
-  "fuel_price": "13.900"
+  "name": "Pertamax",
+  "company": "Pertamina",
+  "price": 12950,
+  "dateTime": "2024-03-06T21:18:34.7142372+07:00"
  },
  {
-  "id": 4,
-  "fuel_name": "Dexlite",
-  "fuel_price": "14.550"
+  "name": "Pertalite",
+  "company": "Pertamina",
+  "price": 10000,
+  "dateTime": "2024-03-06T21:18:34.7142372+07:00"
  },
  {
-  "id": 5,
-  "fuel_name": "Pertamina Dex",
-  "fuel_price": "15.100"
+  "name": "Pertamina Dex",
+  "company": "Pertamina",
+  "price": 15100,
+  "dateTime": "2024-03-06T21:18:34.7142372+07:00"
  },
  {
-  "id": 6,
-  "fuel_name": "Solar Non-Subsidi",
-  "fuel_price": "-"
+  "name": "Dexlite",
+  "company": "Pertamina",
+  "price": 14550,
+  "dateTime": "2024-03-06T21:18:34.7142372+07:00"
  },
  {
-  "id": 7,
-  "fuel_name": "Shell Super",
-  "fuel_price": "IDR 13,540"
+  "name": "BioSolar Non-Subsidi",
+  "company": "Pertamina",
+  "price": 0,
+  "dateTime": "2024-03-06T21:18:34.714746+07:00"
  },
  {
-  "id": 8,
-  "fuel_name": "Shell V-Power",
-  "fuel_price": "IDR 14,380"
+  "name": "BioSolar Subsidi",
+  "company": "Pertamina",
+  "price": 6800,
+  "dateTime": "2024-03-06T21:18:34.714775+07:00"
  },
  {
-  "id": 9,
-  "fuel_name": "Shell V-Power Diesel",
-  "fuel_price": "IDR 15,270"
+  "name": "Shell Super",
+  "company": "Shell",
+  "price": 14530,
+  "dateTime": "2024-03-06T21:18:34.82261+07:00"
  },
  {
-  "id": 10,
-  "fuel_name": "Shell Diesel Extra",
-  "fuel_price": "N/A"
+  "name": "Shell V-Power",
+  "company": "Shell",
+  "price": 15370,
+  "dateTime": "2024-03-06T21:18:34.8231706+07:00"
  },
  {
-  "id": 11,
-  "fuel_name": "Shell V-Power Nitro+",
-  "fuel_price": "IDR 14,630"
+  "name": "Shell V-Power Diesel",
+  "company": "Shell",
+  "price": 16140,
+  "dateTime": "2024-03-06T21:18:34.8236768+07:00"
+ },
+ {
+  "name": "Shell Diesel Extra",
+  "company": "Shell",
+  "price": 0,
+  "dateTime": "2024-03-06T21:18:34.8237077+07:00"
+ },
+ {
+  "name": "Shell V-Power Nitro+",
+  "company": "Shell",
+  "price": 15650,
+  "dateTime": "2024-03-06T21:18:34.8237077+07:00"
+ },
+ {
+  "name": "BP Ultimate",
+  "company": "BP",
+  "price": 15370,
+  "dateTime": "2024-03-06T21:18:35.1825442+07:00"
+ },
+ {
+  "name": "BP 92",
+  "company": "BP",
+  "price": 13990,
+  "dateTime": "2024-03-06T21:18:35.1830835+07:00"
+ },
+ {
+  "name": "BP Diesel",
+  "company": "BP",
+  "price": 15610,
+  "dateTime": "2024-03-06T21:18:35.1830835+07:00"
  }
 ]

@@ -4,10 +4,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// SetupRouter sets up the API routes
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
-	r.Use(gin.Logger())
-	r.Use(gin.Recovery())
+	// GET request to /fuels endpoint
+	r.GET("/fuels", getFuelsHandler)
 
 	return r
 }
