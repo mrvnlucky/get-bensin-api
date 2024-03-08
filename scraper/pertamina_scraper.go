@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"strings"
+	"time"
 
 	"github.com/gocolly/colly/v2"
 
@@ -11,6 +12,7 @@ import (
 	"get-bensin/util"
 )
 
+// ScrapePertamina scrapes fuel prices from the Pertamina website.
 func ScrapePertamina(fuels *[]data.Fuel) {
 	names := []string{
 		"Pertamax Turbo",
@@ -27,6 +29,7 @@ func ScrapePertamina(fuels *[]data.Fuel) {
 	c.OnRequest(func(r *colly.Request) {
 		fmt.Println("Visiting:", r.URL.String())
 	})
+
 	c.OnHTML(".card-body", func(e *colly.HTMLElement) {
 		e.ForEach(".d-flex.justify-content-between", func(_ int, el *colly.HTMLElement) {
 			if !strings.Contains(strings.ToLower(el.Text), "jakarta") {
@@ -34,9 +37,10 @@ func ScrapePertamina(fuels *[]data.Fuel) {
 			}
 			price := strings.TrimSpace(el.ChildText("label:last-child"))
 			fuel := data.Fuel{
-				Name:    names[i],
-				Company: "Pertamina",
-				Price:   util.ToIDR(price),
+				Name:     names[i],
+				Company:  "Pertamina",
+				Price:    util.ToIDR(price),
+				DateTime: time.Now(),
 			}
 			i++
 			*fuels = append(*fuels, fuel)

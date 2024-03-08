@@ -4,15 +4,18 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"log"
+	"time"
 )
 
 type Fuel struct {
-	// ID      uint   `json:"id"`
-	Name    string `json:"name"`
-	Company string `json:"company"`
-	Price   int    `json:"price"`
+	// ID       uint      `json:"id"`
+	Name     string    `json:"name"`
+	Company  string    `json:"company"`
+	Price    int       `json:"price"`
+	DateTime time.Time `json:"dateTime"`
 }
 
+// GetFuels reads the fuels.json file and returns a slice of Fuel structs
 func GetFuels() ([]Fuel, error) {
 	// Read the JSON file
 	data, err := ioutil.ReadFile("fuels.json")

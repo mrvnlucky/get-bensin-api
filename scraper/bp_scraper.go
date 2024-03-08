@@ -6,10 +6,12 @@ import (
 	"get-bensin/util"
 	"log"
 	"strings"
+	"time"
 
 	"github.com/gocolly/colly/v2"
 )
 
+// ScrapeBP scrapes BP's website for fuel prices and stores them in the provided slice.
 func ScrapeBP(fuels *[]data.Fuel) {
 	names := []string{
 		"BP Ultimate",
@@ -18,6 +20,7 @@ func ScrapeBP(fuels *[]data.Fuel) {
 	}
 	i := 0
 	c := colly.NewCollector()
+
 	// Find and parse the table
 	c.OnRequest(func(r *colly.Request) {
 		fmt.Println("Visiting:", r.URL.String())
@@ -28,9 +31,10 @@ func ScrapeBP(fuels *[]data.Fuel) {
 			price := strings.TrimSpace(row.ChildText("td:nth-child(2)"))
 			fmt.Println(price)
 			fuel := data.Fuel{
-				Name:    names[i],
-				Company: "BP",
-				Price:   util.ToIDR(price),
+				Name:     names[i],
+				Company:  "BP",
+				Price:    util.ToIDR(price),
+				DateTime: time.Now(),
 			}
 			i++
 			*fuels = append(*fuels, fuel)
@@ -44,6 +48,7 @@ func ScrapeBP(fuels *[]data.Fuel) {
 	c.OnError(func(r *colly.Response, err error) {
 		log.Fatalln("Request URL:", r.Request.URL, "failed with response:", r, "\nError:", err)
 	})
+
 	// Visit the URL
 	c.Visit("https://www.bp.com/id_id/indonesia/home/produk-dan-layanan/spbu/harga.html")
 }

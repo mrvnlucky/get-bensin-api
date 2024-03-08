@@ -3,6 +3,7 @@ package main
 import (
 	"get-bensin/api"
 	"get-bensin/data"
+	"get-bensin/scraper"
 )
 
 var (
@@ -10,10 +11,10 @@ var (
 )
 
 func main() {
+	scraper.ScheduleScraperJob(&fuels)
 	r := api.SetupRouter()
-	api.RegisterFuelRoutes(r)
-
 	r.Run(":8080")
+
 	// scraper.ScrapePertamina(&fuels)
 	// scraper.ScrapeShell(&fuels)
 	// scraper.ScrapeBP(&fuels)
