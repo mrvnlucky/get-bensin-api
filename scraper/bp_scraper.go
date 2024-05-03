@@ -17,6 +17,7 @@ func ScrapeBP(fuels *[]data.Fuel) {
 		"BP Ultimate",
 		"BP 92",
 		"BP Diesel",
+		"BP Ultimate Diesel",
 	}
 	i := 0
 	c := colly.NewCollector()
